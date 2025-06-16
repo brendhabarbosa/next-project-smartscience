@@ -1,5 +1,6 @@
 'use client';
 import { useState, useEffect } from 'react';
+import  axios from 'axios';
 
 export default function Inscription() {
     const [form, setForm] = useState({
@@ -18,25 +19,22 @@ export default function Inscription() {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
-
-        const resposta = await fetch('/api/route', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(form),
-    })
-
-    if (resposta.ok) {
-        localStorage.setItem('inscricao', 'true')
-        setStatus(true)
-        setMsg('Inscrição realizada com sucesso!')
-        setForm({name: '',
-        email: '',
-        affiliation: '',
-        password: ''})
-    } else {
-        setMsg('Ocorreu um erro ao processar sua inscrição.');
+    try{
+            const resposta = await axios.post('/api/route', form);
+            if (resposta.status == 200){
+                localStorage.setItem('inscricao', 'true')
+                setStatus(true)
+            setMsg('Inscrição realizada com sucesso!')
+            setForm({name: '',
+            email: '',
+            affiliation: '',
+            password: ''})
+    } }
+    catch (error) {
+      setMsg('Ocorreu um erro ao processar sua inscrição.');
     }
-  }
+  };
+
     return (
         <>
             <main>
