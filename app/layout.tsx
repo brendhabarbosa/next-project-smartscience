@@ -2,8 +2,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Link from "next/link";
-import Image from "next/image";
+import Header from "../components/layout/Header";
+import Footer from "../components/layout/Footer";
 import { SessionProvider } from "next-auth/react";
 
 
@@ -32,23 +32,9 @@ export default function RootLayout({
     <html lang="pt-br">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <SessionProvider>
-          <header>
-            <Image src="/logo_smartscience.svg" alt="Logotipo do SmartScience" width={40} height={40} />
-            <h1>SmartScience</h1>
-            <nav>
-              
-              <ul>
-                <li>
-                  <Link className="login-link" href="/login">Login</Link>
-                </li>
-              </ul>
-            </nav>
-          </header>
+          <Header />
           <main>{children}</main>
-          <footer>
-            <p>© 2025 SmartScience. Todos os direitos reservados.</p>
-            <p>Desenvolvido por <a href="https://github.com/brendhabarbosa">Brendha Barbosa</a></p>
-          </footer>
+          <Footer/>
         </SessionProvider>
       </body>
     </html>
