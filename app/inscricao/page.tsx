@@ -1,5 +1,7 @@
 'use client';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import  axios from 'axios';
+import {useRouter} from 'next/navigation';
 
 export default function Inscription() {
     const [form, setForm] = useState({
@@ -10,33 +12,31 @@ export default function Inscription() {
     });
     const [status, setStatus] = useState(false);
     const [msg, setMsg] = useState('');
-    
-     useEffect(() => {
-        const InscricaoOk = localStorage.getItem('inscricao') === 'true'
-        setStatus(InscricaoOk)
-  }, [])
+    const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
 
-        const resposta = await fetch('/api/route', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(form),
-    })
-
-    if (resposta.ok) {
-        localStorage.setItem('inscricao', 'true')
-        setStatus(true)
-        setMsg('Inscrição realizada com sucesso!')
-        setForm({name: '',
-        email: '',
-        affiliation: '',
-        password: ''})
-    } else {
+    const handleSubmit = async (event: React.FormEvent) => {
+        event.preventDefault();
+    try{
+        const response = await axios.post('/api/route', form);
+        if (response.status === 200 || response.status === 201) {
+            setStatus(true);
+            setMsg('Inscrição realizada com sucesso!')
+            setForm({
+                name: '',
+                email: '',
+                affiliation: '',
+                password: ''
+            });
+            setTimeout(() => {
+                router.push("/login");
+            }, 1000);
+        }
+    } catch (error) {
         setMsg('Ocorreu um erro ao processar sua inscrição.');
     }
-  }
+};
+
     return (
         <>
             <main>
