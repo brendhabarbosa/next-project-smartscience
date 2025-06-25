@@ -1,6 +1,10 @@
+'use client';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSession } from "next-auth/react";
+import LogoutButton from '../ui/LogoutButton';
 export default function Header() {
+  const { data: session, status } = useSession();
   return (
     <header>
       <Image
@@ -13,9 +17,22 @@ export default function Header() {
       <nav>
         <ul>
           <li>
-            <Link className="login-link" href="/login">
-              Login
-            </Link>
+            {!session ? (
+              <Link className="login-link" href="/login">
+                Login
+              </Link>
+            ) : (
+              <>
+                 <LogoutButton/>
+              </>
+            )}
+          {session?.user?.role === 'admin' && (
+            <>
+              <Link className="login-link" href="/dashboard">
+                Dashboard 
+              </Link>
+            </>
+          )}  
           </li>
         </ul>
       </nav>
