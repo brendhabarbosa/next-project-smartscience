@@ -18,7 +18,7 @@ export default function Home() {
         <Image
           src="/corais.jpg"
           alt="Corais"
-          width={400}
+          width={600}
           height={400}
           className={styles.image}
         />

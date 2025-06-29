@@ -1,4 +1,11 @@
-export default function NewArticle() {
+import { auth } from "../../../auth";
+
+export default async function NewArticle() {
+    const session = await auth();
+        if (!session){
+        return <p>Acesso negado</p>; 
+      }
+   
     return (
         <>
             <main>
@@ -6,6 +13,9 @@ export default function NewArticle() {
                     <h2>Novo Artigo</h2>
                     <label htmlFor="title">Título:</label>
                     <input type="text" id="title" name="title" required />
+
+                    <label htmlFor="title">Autores:</label>
+                    <input type="text" id="author" name="author" required />
 
                     <label htmlFor="content">Conteúdo:</label>
                     <textarea id="content" name="content" required></textarea>
