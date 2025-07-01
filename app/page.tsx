@@ -28,7 +28,7 @@ export default function Home() {
               <button>Inscrever-se</button>
             </Link>
           ) : (
-            <Link href="/sobre">
+            <Link href="/artigos/novo">
               <button>Submeter artigo</button>
             </Link>
           )}

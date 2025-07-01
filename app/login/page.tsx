@@ -10,7 +10,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  
+
   useEffect(() => {
     if (status === "authenticated") {
       if (session?.user?.role === "admin") {
@@ -21,7 +21,7 @@ export default function Login() {
     }
   }, [status, session, router]);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const result = await signIn("credentials", {
