@@ -3,6 +3,7 @@
 import { signIn, useSession } from "next-auth/react";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Login() {
   const router = useRouter();
@@ -63,6 +64,9 @@ export default function Login() {
       />
 
       <button type="submit">Entrar</button>
+      <Link href="/inscricao">
+        <p>Se ainda não possui inscrição, inscreva-se já!</p>
+      </Link>
     </form>
   );
 }

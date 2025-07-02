@@ -1,12 +1,28 @@
 'use client'
 import Image from "next/image";
-import Link from "next/link";
 import styles from "./page.module.css";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 export default function Home() {
   const { data: session } = useSession();
+  const router = useRouter();
+  const handleClick = () => {
+    if (session) {
+      router.push("/artigos/novo");
+    } else {
+      router.push("/login");
+    }
+  };
+  const handleClickInscricao = () => {
+    if (!session) {
+      router.push("/inscricao");
+    } else {
+      router.push("/");
+    }
+  };
+  
   return (
-    
       <>
       <main className={styles.container}>
         <h2 className={styles.titles}>Bem vindo ao SmartScience. Inscreva-se já!</h2>
@@ -23,15 +39,8 @@ export default function Home() {
           className={styles.image}
         />
         <div className={styles.image_buttons}>
-          {!session ? (
-            <Link href="/inscricao">
-              <button>Inscrever-se</button>
-            </Link>
-          ) : (
-            <Link href="/artigos/novo">
-              <button>Submeter artigo</button>
-            </Link>
-          )}
+              <button onClick={handleClickInscricao}>Inscrever-se</button>
+              <button onClick={handleClick}>Submeter artigo</button>
         </div>
       </div>
       </main>

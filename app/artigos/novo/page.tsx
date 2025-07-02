@@ -8,9 +8,6 @@ export default function NewArticle() {
     const [conteudo, setConteudo] = useState('');
     const [msg, setMsg] = useState('');
 
-        if (!session){
-        return <p>Acesso negado</p>; 
-      }
     async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault();
 

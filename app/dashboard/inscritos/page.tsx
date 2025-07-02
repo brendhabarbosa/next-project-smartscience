@@ -1,9 +1,4 @@
-import {auth} from "../../../auth";
 export default async function InscriptionList() {
-    const session = await auth();
-    if (!session || session.user.role !== "admin") {
-    return <p>Acesso negado</p>; 
-  }
     return (
         <>
             <main>
